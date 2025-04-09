@@ -125,20 +125,37 @@ function Calculator() {
       </div>
 
       <h3>History</h3>
-      <ul className="list-group">
-  {history.map((item, i) => (
-    <li key={i} className="list-group-item">
-      {item.expression} = {item.result} <br />
-      <small className="text-muted">{new Date(item.created_at).toLocaleString()}</small>
-      <button
-        onClick={() => deleteHistoryItem(item.id)}
-        className="btn btn-danger btn-sm float-end"
-      >
-        Delete
-      </button>
-    </li>
-  ))}
+<ul className="list-group">
+  {history.map((item, i) => {
+    const createdAt = new Date(item.created_at);
+    const year = createdAt.getFullYear();
+    const month = String(createdAt.getMonth() + 1).padStart(2, '0');
+    const day = String(createdAt.getDate()).padStart(2, '0');
+
+    let hours = createdAt.getHours();
+    const minutes = String(createdAt.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12 || 12;
+
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes} ${ampm}`;
+
+    return (
+      <li key={i} className="list-group-item position-relative">
+        {item.expression} = {item.result}
+        <div className="text-center mt-1">
+          <small className="text-muted">{formattedDateTime}</small>
+        </div>
+        <button
+          onClick={() => deleteHistoryItem(item.id)}
+          className="btn btn-danger btn-sm position-absolute end-0 top-50 translate-middle-y"
+        >
+          Delete
+        </button>
+      </li>
+    );
+  })}
 </ul>
+
 
 
       {/* Inline CSS */}
