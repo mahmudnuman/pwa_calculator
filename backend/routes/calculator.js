@@ -36,7 +36,6 @@ router.get('/history', verifyToken, (req, res) => {
   );
 });
 
-// 📤 POST /api/calc/delete — Delete a history entry (using POST)
 router.post('/delete', verifyToken, (req, res) => {
   const historyId = req.body.historyId;
   const userId = req.userId;

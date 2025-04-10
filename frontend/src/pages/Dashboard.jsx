@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import Calculator from '../components/Calculator';
 import { removeToken, getToken } from '../utils/auth';
 
@@ -22,8 +22,32 @@ function Dashboard() {
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>PWA</h1>
-        <button onClick={handleLogout} className="btn btn-danger">Logout</button>
+
+        <div className="dropdown">
+          <button
+            className="btn btn-outline-primary dropdown-toggle"
+            type="button"
+            id="accountDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Account
+          </button>
+          <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+            <li>
+              <Link className="dropdown-item" to="/change-password">
+                Change Password
+              </Link>
+            </li>
+            <li>
+              <button className="dropdown-item text-danger" onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
+
       <Calculator />
     </div>
   );
